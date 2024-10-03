@@ -1,4 +1,3 @@
-Zde je `readme.md` pro váš projekt:
 
 # Systém pro správu skladu
 
