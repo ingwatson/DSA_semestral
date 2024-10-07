@@ -1,7 +1,9 @@
 import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.IOException;
 
 public class Main {
-    // Definování pevné cesty k adresáři pro export, kde budou soubory uloženy.
     private static final String EXPORT_DIRECTORY = "C:/exportedFiles/";
 
     public static void main(String[] args) {
@@ -18,7 +20,8 @@ public class Main {
             System.out.println("6. Spočítat celkovou cenu zboží");
             System.out.println("7. Importovat data z CSV/TXT souboru");
             System.out.println("8. Exportovat data do CSV/TXT souboru");
-            System.out.println("9. Konec");
+            System.out.println("9. Zobrazit nápovědu");
+            System.out.println("10. Konec");
             System.out.print("Vyberte operaci: ");
             volba = scanner.nextInt();
 
@@ -80,16 +83,21 @@ public class Main {
                     }
                     break;
                 case 9:
+                    try {
+                        String content = new String(Files.readAllBytes(Paths.get("napoveda.md")));
+                        System.out.println(content);
+                    } catch (IOException e) {
+                        System.out.println("Chyba při čtení souboru: " + e.getMessage());
+                    }
+                    break;
+                case 10:
                     System.out.println("Ukončuji program.");
                     break;
                 default:
                     System.out.println("Neplatná volba, zkuste to znovu.");
             }
-        } while (volba != 9);
+        } while (volba != 10);
 
         scanner.close(); // Uzavření scanneru
     }
 }
-
-// Michal Klymov, semestrální práce - DSA.
-// VŠPJ, 2024
