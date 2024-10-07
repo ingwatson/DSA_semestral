@@ -4,7 +4,7 @@ import java.nio.file.Paths;
 import java.io.IOException;
 
 public class Main {
-    private static final String EXPORT_DIRECTORY = "/Users/klymov/Documents/DSA_semestral/";
+    private static final String EXPORT_DIRECTORY = "/Users/klymov/Documents/DSA_semestral/"; //ZAPSAT CESTU K ADRESÁŘI, KAM CHCETE EXPORTOVAT DATA
 
     public static void main(String[] args) {
         Sklad sklad = new Sklad(); // Vytvoření instance skladu
@@ -95,7 +95,7 @@ public class Main {
                     break;
                 case 9:
                     try {
-                        String content = new String(Files.readAllBytes(Paths.get("/Users/klymov/Documents/DSA_semestral/napoveda.md")));
+                        String content = new String(Files.readAllBytes(Paths.get("/Users/klymov/Documents/DSA_semestral/napoveda.md"))); // Načtení obsahu souboru
                         System.out.println(content);
                     } catch (IOException e) {
                         System.out.println("Chyba při čtení souboru: " + e.getMessage());
