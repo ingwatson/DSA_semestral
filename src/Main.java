@@ -118,7 +118,9 @@ public class Main {
     public static void zobrazitVyzitiPameti() {
         Runtime runtime = Runtime.getRuntime();
 
-        // Získání dostupné a používané paměti
+        // Vynucení garbage collectoru pro přesnější měření
+        System.gc();
+
         long pametPouzita = runtime.totalMemory() - runtime.freeMemory();
         long pametCelkem = runtime.totalMemory();
         long pametMax = runtime.maxMemory();
