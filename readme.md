@@ -61,12 +61,12 @@ V projektu jsou použity následující datové struktury:
 
 1. Zkompilujte Java soubory:
     ```sh
-    javac src/*.java
+    javac main.java
     ```
 
 2. Spusťte hlavní třídu:
     ```sh
-    java -cp src Main
+    java main.java
     ```
 
 3. Postupujte podle pokynů na obrazovce pro správu skladu.
