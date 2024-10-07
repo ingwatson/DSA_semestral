@@ -81,4 +81,4 @@ Aplikace po každé uživatelské operaci zobrazuje informace o využití pamět
 
 
 ### Michal Klymov, semestrální práce - DSA.
-#### VŠPJ, 2024
+#### VŠPJ, 2024 
