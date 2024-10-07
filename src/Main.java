@@ -12,6 +12,7 @@ public class Main {
         int volba; // Proměnná pro volbu uživatele (prvky menu).
 
         do {
+            System.out.println("\nSkladový systém");
             System.out.println("\n1. Přidat nebo aktualizovat zboží");
             System.out.println("2. Aktualizovat počet kusů zboží podle ID");
             System.out.println("3. Vypsat zboží podle ID");
