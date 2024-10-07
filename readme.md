@@ -6,6 +6,8 @@ Tento projekt je jednoduchý systém pro správu skladu implementovaný v jazyce
 
 - `src/Main.java`: Obsahuje hlavní třídu a třídu `Zbozi`.
 - `src/Sklad.java`: Obsahuje třídu `Sklad`.
+- `testy/`: Obsahuje soubory .csv k importu. 
+- `napoveda.md`: Obsahuje pokyny k používání programu.
 
 ## Třídy
 
