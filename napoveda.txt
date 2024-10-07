@@ -2,6 +2,8 @@
 
 Tento program umožňuje správu skladu zboží pomocí různých funkcí. Níže jsou uvedeny jednotlivé operace, které můžete provést v programu, a jejich popis.
 
+Po každé provedené akci se v programu zobrazí informace o použité paměti RAM.
+
 ## 1. Přidat nebo aktualizovat zboží
 Tato volba umožňuje přidat nové zboží do skladu nebo aktualizovat již existující zboží.
 

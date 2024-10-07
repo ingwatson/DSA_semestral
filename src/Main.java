@@ -62,6 +62,7 @@ public class Main {
                     break;
                 case 5:
                     sklad.vypisVsechny();
+                    zobrazitVyzitiPameti();
                     break;
                 case 6:
                     System.out.println("Celková cena všech zboží ve skladu: " + sklad.vypocetCelkoveCeny());

@@ -57,6 +57,14 @@ V projektu jsou použity následující datové struktury:
    - Používá se při importu dat ze souboru CSV/TXT do skladu.
    - `Array` je používán pro dočasné uložení rozdělených hodnot z řádku souboru.
 
+## Sledování využití paměti
+
+Aplikace po každé uživatelské operaci zobrazuje informace o využití paměti JVM. Tato funkce zobrazuje tři klíčové hodnoty:
+
+- **Použitá paměť**: Paměť aktuálně využívaná programem.
+- **Dostupná paměť**: Množství paměti dostupné pro program v daném okamžiku.
+- **Maximální paměť**: Maximální množství paměti, které může JVM použít.
+
 # Použití
 
 1. Zkompilujte Java soubory:
