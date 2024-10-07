@@ -1,4 +1,3 @@
-
 # Systém pro správu skladu
 
 Tento projekt je jednoduchý systém pro správu skladu implementovaný v jazyce Java. Umožňuje uživatelům spravovat kolekci zboží, včetně přidávání, aktualizace, odstraňování a zobrazování zboží, stejně jako výpočet celkové ceny veškerého zboží ve skladu.
@@ -22,6 +21,8 @@ Třída `Sklad` představuje sklad, který spravuje kolekci zboží (`Zbozi`). P
 - `zrusitZbozi(int id)`: Odstraní zboží ze skladu podle jeho ID.
 - `vypisVsechny()`: Zobrazí všechno zboží ve skladu, seřazené podle jejich ID.
 - `vypocetCelkoveCeny()`: Vypočítá a vrátí celkovou cenu veškerého zboží ve skladu.
+- `importData(String filePath)`: Importuje data ze souboru CSV/TXT do skladu.
+- `exportData(String filePath)`: Exportuje data ze skladu do souboru CSV/TXT.
 
 ### Zbozi
 
@@ -36,8 +37,27 @@ Třída `Zbozi` představuje zboží ve skladu. Obsahuje detaily o zboží, jako
 - `setPocetKs(int pocetKs)`: Nastaví počet kusů zboží.
 - `getCelkovaCena()`: Vrátí celkovou cenu zboží (cena * počet kusů).
 - `toString()`: Vrátí textovou reprezentaci zboží.
+- `toCSV()`: Vrátí CSV reprezentaci zboží.
 
-## Použití
+## Datové struktury
+
+V projektu jsou použity následující datové struktury:
+
+1. **`HashMap`**:
+   - Používá se ve třídě `Sklad` pro uložení zboží (`Zbozi`) s jejich ID jako klíči.
+   - `HashMap` umožňuje rychlý přístup k zboží podle jejich ID.
+
+
+2. **`TreeMap`**:
+   - Používá se ve třídě Sklad pro seřazení zboží podle jejich ID při výpisu všech zboží.
+   - `TreeMap` automaticky udržuje zboží seřazené podle klíčů (ID).
+
+
+2. **`Array`**:
+   - Používá se při importu dat ze souboru CSV/TXT do skladu.
+   - `Array` je používán pro dočasné uložení rozdělených hodnot z řádku souboru.
+
+# Použití
 
 1. Zkompilujte Java soubory:
     ```sh
@@ -50,7 +70,3 @@ Třída `Zbozi` představuje zboží ve skladu. Obsahuje detaily o zboží, jako
     ```
 
 3. Postupujte podle pokynů na obrazovce pro správu skladu.
-
-## Licence
-
-Tento projekt je licencován pod licencí MIT. Podrobnosti naleznete v souboru `LICENSE`.
