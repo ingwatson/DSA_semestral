@@ -84,7 +84,7 @@ public class Main {
                     break;
                 case 9:
                     try {
-                        String content = new String(Files.readAllBytes(Paths.get("napoveda.md")));
+                        String content = new String(Files.readAllBytes(Paths.get("napoveda.txt")));
                         System.out.println(content);
                     } catch (IOException e) {
                         System.out.println("Chyba při čtení souboru: " + e.getMessage());
