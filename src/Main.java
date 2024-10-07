@@ -91,7 +91,8 @@ public class Main {
                     }
                     break;
                 case 10:
-                    System.out.println("Ukončuji program.");
+                    System.out.println("Ukončuji program.\nMichal Klymov, semestrální práce - DSA.\n" +
+                            "VŠPJ, 2024");
                     break;
                 default:
                     System.out.println("Neplatná volba, zkuste to znovu.");
