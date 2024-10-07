@@ -95,7 +95,7 @@ public class Main {
                     break;
                 case 9:
                     try {
-                        String content = new String(Files.readAllBytes(Paths.get("/Users/klymov/Documents/DSA_semestral/napoveda.txt")));
+                        String content = new String(Files.readAllBytes(Paths.get("/Users/klymov/Documents/DSA_semestral/napoveda.md")));
                         System.out.println(content);
                     } catch (IOException e) {
                         System.out.println("Chyba při čtení souboru: " + e.getMessage());
