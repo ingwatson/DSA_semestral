@@ -90,3 +90,6 @@ public class Main {
         scanner.close(); // Uzavření scanneru
     }
 }
+
+// Michal Klymov, semestrální práce - DSA.
+// VŠPJ, 2024

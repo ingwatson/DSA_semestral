@@ -175,3 +175,6 @@ public class Sklad {
         }
     }
 }
+
+// Michal Klymov, semestrální práce - DSA.
+// VŠPJ, 2024
