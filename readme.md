@@ -78,3 +78,7 @@ Aplikace po každé uživatelské operaci zobrazuje informace o využití pamět
     ```
 
 3. Postupujte podle pokynů na obrazovce pro správu skladu.
+
+
+### Michal Klymov, semestrální práce - DSA.
+#### VŠPJ, 2024
