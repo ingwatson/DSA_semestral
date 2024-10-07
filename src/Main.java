@@ -38,6 +38,7 @@ public class Main {
                     System.out.print("Zadejte počet kusů: ");
                     int pocetKs = scanner.nextInt();
                     sklad.pridatZbozi(id, nazev, cena, pocetKs);
+                    zobrazitVyzitiPameti();
                     break;
                 case 2:
                     System.out.print("Zadejte ID zboží: ");
@@ -45,28 +46,33 @@ public class Main {
                     System.out.print("Zadejte nový počet kusů: ");
                     int novyPocetKs = scanner.nextInt();
                     sklad.aktualizovatPocetZbozi(idAkt, novyPocetKs);
+                    zobrazitVyzitiPameti();
                     break;
                 case 3:
                     System.out.print("Zadejte ID zboží: ");
                     int idVypis = scanner.nextInt();
                     sklad.vypisZbozi(idVypis);
+                    zobrazitVyzitiPameti();
                     break;
                 case 4:
                     System.out.print("Zadejte ID zboží: ");
                     int idZrus = scanner.nextInt();
                     sklad.zrusitZbozi(idZrus);
+                    zobrazitVyzitiPameti();
                     break;
                 case 5:
                     sklad.vypisVsechny();
                     break;
                 case 6:
                     System.out.println("Celková cena všech zboží ve skladu: " + sklad.vypocetCelkoveCeny());
+                    zobrazitVyzitiPameti();
                     break;
                 case 7:
                     scanner.nextLine(); // Vyčištění bufferu
                     System.out.print("Zadejte cestu k souboru pro import: ");
                     String importPath = scanner.nextLine();
                     sklad.importData(importPath);
+                    zobrazitVyzitiPameti();
                     break;
                 case 8:
                     System.out.print("Zadejte název souboru: ");
@@ -77,11 +83,14 @@ public class Main {
 
                     if (format.equals("csv")) {
                         sklad.exportData(EXPORT_DIRECTORY + fileName + ".csv");
+                        zobrazitVyzitiPameti();
                     } else if (format.equals("txt")) {
                         sklad.exportData(EXPORT_DIRECTORY + fileName + ".txt");
+                        zobrazitVyzitiPameti();
                     } else {
                         System.out.println("Neplatný formát, export zrušen.");
                     }
+                    zobrazitVyzitiPameti();
                     break;
                 case 9:
                     try {
@@ -90,6 +99,7 @@ public class Main {
                     } catch (IOException e) {
                         System.out.println("Chyba při čtení souboru: " + e.getMessage());
                     }
+                    zobrazitVyzitiPameti();
                     break;
                 case 10:
                     System.out.println("Ukončuji program.\nMichal Klymov, semestrální práce - DSA.\n" +
@@ -102,7 +112,24 @@ public class Main {
 
         scanner.close(); // Uzavření scanneru
     }
+    /**
+     * Metoda pro zobrazení využití paměti.
+     */
+    public static void zobrazitVyzitiPameti() {
+        Runtime runtime = Runtime.getRuntime();
+
+        // Získání dostupné a používané paměti
+        long pametPouzita = runtime.totalMemory() - runtime.freeMemory();
+        long pametCelkem = runtime.totalMemory();
+        long pametMax = runtime.maxMemory();
+
+        System.out.println("\n=== Využití paměti ===");
+        System.out.println("Použitá paměť: " + pametPouzita / (1024 * 1024) + " MB");
+        System.out.println("Dostupná paměť: " + pametCelkem / (1024 * 1024) + " MB");
+        System.out.println("Maximální paměť: " + pametMax / (1024 * 1024) + " MB");
+    }
 }
+
 
 // Michal Klymov, semestrální práce - DSA.
 // VŠPJ, 2024
