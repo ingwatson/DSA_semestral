@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 public class Main {
-    private static final String EXPORT_DIRECTORY = "testy/"; //ZAPSAT CESTU K ADRESÁŘI, KAM CHCETE EXPORTOVAT DATA
+    private static final String EXPORT_DIRECTORY = "testy/"; //Absolutní cesty
 
     public static void main(String[] args) {
         Sklad sklad = new Sklad(); // Vytvoření instance skladu
