@@ -1,0 +1,45 @@
+Zadání:
+
+Cílem projektu je vytvořit jednoduchý systém pro správu skladu, který umožní uživatelům spravovat kolekci zboží ve skladu. Systém bude zahrnovat základní operace, jako je přidávání a aktualizace zboží, zobrazování informací o zboží, export a import dat ve formátu CSV nebo TXT, a také možnost výpočtu celkové ceny zboží. Důraz bude kladen na efektivní správu dat a optimalizaci výkonu systému, včetně sledování využití paměti.
+
+Analýza problému:
+
+Hlavním problémem, který projekt řeší, je potřeba efektivně spravovat inventář zboží v malém až středním skladu. Tento úkol zahrnuje přehledné ukládání a aktualizaci informací o zboží, vyhledávání zboží podle ID a export a import dat. Dalším problémem je nutnost optimalizace výkonu, zejména co se týče využití paměti, což je důležité při práci s velkým množstvím dat.
+
+Možná řešení:
+
+	1.	Použití základních datových struktur jako HashMap a TreeMap: Tyto struktury umožňují efektivní správu zboží, rychlý přístup k datům podle jejich ID a jejich uspořádání.
+	2.	Vytvoření možností importu a exportu dat: Tato funkce zajišťuje, že data mohou být snadno uložena a načtena ve formátech CSV a TXT, což zjednodušuje integraci se systémy třetích stran.
+	3.	Sledování využití paměti: Implementace funkce sledování paměti umožňuje uživatelům získat přehled o tom, kolik systémové paměti program používá, což je důležité pro optimalizaci výkonu a identifikaci případných úzkých míst.
+	4.	Zajištění přenositelnosti aplikace: Zajistit, aby aplikace byla přenosná na různé systémy a aby její nastavení (např. cesta k souborům) bylo snadno upravitelné.
+
+Návrh zvoleného řešení:
+
+Zvolené řešení je navrhnout systém pomocí jazyka Java, využívající datové struktury jako HashMap a TreeMap pro správu zboží. Funkce pro import a export dat budou implementovány tak, aby podporovaly oba formáty (CSV a TXT). Program bude navržen tak, aby sledoval a zobrazoval využití paměti při každé operaci, což umožní snadné monitorování výkonu.
+
+Odůvodnění volby řešení:
+
+Java byla zvolena jako programovací jazyk kvůli své přenositelnosti a široké podpoře nástrojů pro správu souborů a optimalizaci výkonu. Datové struktury HashMap a TreeMap jsou ideální pro efektivní správu velkých množství dat, což je pro tento typ aplikace zásadní. Funkce pro sledování paměti umožní uživatelům lépe porozumět, jak program pracuje s pamětí, a identifikovat případné problémy při práci s velkým objemem dat.
+
+Odůvodnění zvolených algoritmů:
+
+	•	HashMap byla zvolena pro rychlé vyhledávání a ukládání zboží podle ID, protože nabízí konstantní čas pro přístup k prvkům.
+	•	TreeMap byla použita pro situace, kdy je potřeba seřadit zboží podle ID, což umožňuje efektivní procházení zboží v seřazeném pořadí.
+	•	Import a export dat je implementován pomocí standardních funkcí pro práci se soubory, což zajišťuje rychlé čtení a zápis velkých souborů.
+
+Popis realizace:
+
+Program je implementován jako konzolová aplikace. Uživatelé mohou vybírat z několika možností, jako je přidání nového zboží, aktualizace počtu kusů, výpis zboží, export a import dat a zobrazení nápovědy. Program sleduje využití paměti pomocí metody Runtime.getRuntime(), která po každé operaci zobrazí množství použité paměti.
+
+Postup testování:
+
+Testování probíhalo postupně pro jednotlivé funkce programu:
+
+	1.	Testování přidání a aktualizace zboží: Ověření, že systém správně přidává a aktualizuje zboží podle ID.
+	2.	Testování exportu a importu dat: Ověření, že program správně zapisuje a čte data ze souborů CSV a TXT.
+	3.	Testování výpočtu celkové ceny: Kontrola správnosti výpočtů na různých sadách dat.
+	4.	Sledování využití paměti: Ověření, že program správně zobrazuje využití paměti po každé operaci.
+
+Zhodnocení výsledku:
+
+Projekt splňuje stanovené požadavky. Uživatelé mohou snadno spravovat sklad, přidávat a aktualizovat zboží, exportovat a importovat data. Funkce pro sledování paměti poskytuje cenné informace o efektivitě programu. Implementace využívá efektivní algoritmy pro správu dat, což zajišťuje rychlý přístup a manipulaci se zbožím i při velkých objemech dat.
