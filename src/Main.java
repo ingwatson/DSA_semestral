@@ -2,9 +2,11 @@ import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 public class Main {
-    private static final String EXPORT_DIRECTORY = "/Users/klymov/Documents/DSA_semestral/"; //ZAPSAT CESTU K ADRESÁŘI, KAM CHCETE EXPORTOVAT DATA
+    private static final String EXPORT_DIRECTORY = "testy/"; //ZAPSAT CESTU K ADRESÁŘI, KAM CHCETE EXPORTOVAT DATA
 
     public static void main(String[] args) {
         Sklad sklad = new Sklad(); // Vytvoření instance skladu
@@ -94,9 +96,13 @@ public class Main {
                     zobrazitVyzitiPameti();
                     break;
                 case 9:
-                    try {
-                        String content = new String(Files.readAllBytes(Paths.get("/Users/klymov/Documents/DSA_semestral/napoveda.md"))); // Načtení obsahu souboru
-                        System.out.println(content);
+                    try (InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("napoveda.md")) {
+                        if (inputStream != null) {
+                            String content = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+                            System.out.println(content);
+                        } else {
+                            System.out.println("Soubor nápovědy nenalezen.");
+                        }
                     } catch (IOException e) {
                         System.out.println("Chyba při čtení souboru: " + e.getMessage());
                     }
