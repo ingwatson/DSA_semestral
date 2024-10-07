@@ -1,0 +1,29 @@
+HashMap a TreeMap jsou obě implementace rozhraní Map v Javě, které slouží k ukládání dvojic klíč-hodnota. I když mají podobné použití, každá z těchto struktur nabízí jiné výhody, což je důvod, proč používáme obě, nikoliv jen jednu. Níže jsou vysvětleny jejich klíčové rozdíly a odůvodnění jejich použití v projektu.
+
+HashMap:
+
+	•	Rychlost přístupu: HashMap poskytuje konstantní čas (O(1)) pro základní operace jako vložení, odstranění a přístup k prvkům. To je umožněno díky hashovacímu mechanismu, který převádí klíče na indexy v tabulce.
+	•	Nezaručuje pořadí prvků: HashMap neuspořádává prvky podle žádného pořadí. Zboží uložené v HashMap může být vráceno v libovolném pořadí, což je často dostačující pro rychlé vyhledávání podle ID.
+	•	Přístup podle klíče: Pro rychlý přístup k zboží podle jeho ID je HashMap ideální, protože umožňuje velmi rychlé vyhledávání bez ohledu na velikost dat.
+
+TreeMap:
+
+	•	Uspořádání prvků: TreeMap ukládá prvky v uspořádaném pořadí podle klíčů, což je dosaženo pomocí binárního vyhledávacího stromu (např. Red-Black strom). To znamená, že kdykoli požádáme o všechny položky v mapě, vrátí se nám v přirozeném pořadí klíčů (např. podle ID zboží).
+	•	Rychlost přístupu: Operace jako vložení, odstranění a vyhledávání mají časovou složitost O(log n), což je sice pomalejší než HashMap, ale stále dostatečně rychlé pro mnoho případů, zejména pokud potřebujeme, aby zboží bylo vždy seřazeno podle ID.
+	•	Přístup k prvkům v seřazeném pořadí: Když chceme vypsat nebo zpracovat zboží seřazené podle ID, TreeMap je vhodná volba, protože nám poskytuje automaticky uspořádané výsledky.
+
+Proč používáme obě, nikoliv jen jednu?
+
+	1.	Efektivita vs. Pořadí:
+	•	HashMap je rychlejší pro operace, které nevyžadují seřazení, například pro rychlý přístup ke zboží podle ID. To je velmi užitečné, pokud potřebujeme efektivně zpracovávat jednotlivé prvky v náhodném pořadí.
+	•	Na druhou stranu, TreeMap je užitečná tam, kde je pořadí klíčové, například při vypisování všech zboží seřazených podle ID. Používání TreeMap pro všechny operace by bylo méně efektivní, pokud by nás pořadí nezajímalo, protože vyžaduje O(log n) čas pro operace, zatímco HashMap nabízí O(1) přístup.
+	2.	Kombinace výhod:
+	•	Použitím obou datových struktur můžeme efektivně kombinovat výhody obou přístupů. Pro rychlý přístup k zboží používáme HashMap, a když je potřeba pracovat s daty v seřazeném pořadí, používáme TreeMap. Tím dosáhneme nejlepšího výkonu v různých situacích.
+
+Shrnutí:
+
+	•	HashMap poskytuje nejrychlejší přístup k prvkům, pokud nezáleží na pořadí.
+	•	TreeMap poskytuje uspořádané výsledky, ale je o něco pomalejší.
+	•	Kombinace obou umožňuje využít výhody rychlého přístupu HashMap pro běžné operace a uspořádání TreeMap pro operace, kde je potřeba seřadit data podle ID.
+
+V rámci skladového systému používáme HashMap pro rychlé vyhledávání a aktualizaci zboží podle jeho ID a TreeMap pro vypisování všech zboží v uspořádaném pořadí, čímž maximalizujeme efektivitu celého systému.
