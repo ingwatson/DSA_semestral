@@ -3,19 +3,37 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * Třída Sklad představuje sklad, který spravuje kolekci zboží.
+ */
 public class Sklad {
-    private Map<Integer, Zbozi> sklad;
+    private Map<Integer, Zbozi> sklad; // Mapa pro uložení zboží s jejich ID jako klíči
 
+    /**
+     * Konstruktor inicializuje sklad s prázdným HashMap.
+     */
     public Sklad() {
         sklad = new HashMap<>();
     }
 
+    /**
+     * Přidá nebo aktualizuje zboží ve skladu.
+     * @param id ID zboží
+     * @param nazev Název zboží
+     * @param cena Cena zboží
+     * @param pocetKs Počet kusů zboží
+     */
     public void pridatZbozi(int id, String nazev, double cena, int pocetKs) {
         Zbozi zbozi = new Zbozi(id, nazev, cena, pocetKs);
         sklad.put(id, zbozi);
         System.out.println("Zboží přidáno/aktualizováno.");
     }
 
+    /**
+     * Aktualizuje počet kusů zboží ve skladu.
+     * @param id ID zboží
+     * @param pocetKs Nový počet kusů zboží
+     */
     public void aktualizovatPocetZbozi(int id, int pocetKs) {
         Zbozi zbozi = sklad.get(id);
         if (zbozi != null) {
@@ -31,6 +49,10 @@ public class Sklad {
         }
     }
 
+    /**
+     * Zobrazí detaily zboží podle jeho ID.
+     * @param id ID zboží
+     */
     public void vypisZbozi(int id) {
         Zbozi zbozi = sklad.get(id);
         if (zbozi != null) {
@@ -40,6 +62,7 @@ public class Sklad {
         }
     }
 
+
     public void zrusitZbozi(int id) {
         if (sklad.remove(id) != null) {
             System.out.println("Zboží s ID " + id + " bylo zrušeno.");
@@ -47,6 +70,7 @@ public class Sklad {
             System.out.println("Zboží s ID " + id + " nebylo nalezeno.");
         }
     }
+
 
     public void vypisVsechny() {
         TreeMap<Integer, Zbozi> serazenySklad = new TreeMap<>(sklad);
@@ -57,6 +81,10 @@ public class Sklad {
         }
     }
 
+
+    //Vypočítá a vrátí celkovou cenu veškerého zboží ve skladu.
+
+
     public double vypocetCelkoveCeny() {
         double celkovaCena = 0;
         for (Zbozi zbozi : sklad.values()) {
@@ -65,7 +93,7 @@ public class Sklad {
         return celkovaCena;
     }
 
-    // Import dat z CSV nebo TXT souboru
+    //Importuje data ze souboru CSV/TXT do skladu.
     public void importData(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -83,7 +111,8 @@ public class Sklad {
         }
     }
 
-    // Export dat do CSV nebo TXT souboru
+    //Exportuje data ze skladu do souboru CSV/TXT.
+
     public void exportData(String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Zbozi zbozi : sklad.values()) {
@@ -96,8 +125,9 @@ public class Sklad {
         }
     }
 
-    // Třída Zbozi představuje zboží ve skladu
-    public static class Zbozi {
+
+
+    public static class Zbozi { //Třída Zbozi představuje zbozí ve skladu.
         private int id;
         private String nazev;
         private double cena;
@@ -139,7 +169,7 @@ public class Sklad {
             return String.format("%-10d %-20s %-10.2f %-10d", id, nazev, cena, pocetKs);
         }
 
-        // Export jednoho zboží do CSV formátu
+
         public String toCSV() {
             return id + "," + nazev + "," + cena + "," + pocetKs;
         }

@@ -1,13 +1,13 @@
 import java.util.Scanner;
 
 public class Main {
-    // Definování pevné cesty k adresáři, kde budou soubory uloženy
+    // Definování pevné cesty k adresáři pro export, kde budou soubory uloženy.
     private static final String EXPORT_DIRECTORY = "C:/exportedFiles/";
 
     public static void main(String[] args) {
         Sklad sklad = new Sklad(); // Vytvoření instance skladu
         Scanner scanner = new Scanner(System.in); // Scanner pro vstup uživatele
-        int volba; // Proměnná pro volbu uživatele
+        int volba; // Proměnná pro volbu uživatele (prvky menu).
 
         do {
             System.out.println("\n1. Přidat nebo aktualizovat zboží");
@@ -65,11 +65,10 @@ public class Main {
                     sklad.importData(importPath);
                     break;
                 case 8:
-                    // Zde jsme odstranili potřebu ptát se na cestu - cesta je předdefinovaná
                     System.out.print("Zadejte název souboru: ");
                     scanner.nextLine(); // Vyčištění bufferu
                     String fileName = scanner.nextLine(); // Uživatel zadá název souboru
-                    System.out.print("Zvolte formát souboru (csv/txt): ");
+                    System.out.print("Zvolte formát souboru (csv/txt): "); // Uživatel zadá formát souboru
                     String format = scanner.nextLine().toLowerCase(); // Převod na malá písmena
 
                     if (format.equals("csv")) {
