@@ -93,7 +93,7 @@ public class Main {
                     } else {
                         System.out.println("Neplatný formát, export zrušen.");
                     }
-                    zobrazitVyzitiPameti();
+
                     break;
                 case 9:
                     try (InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("napoveda.md")) {
