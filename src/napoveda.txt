@@ -59,6 +59,8 @@ Tato volba umožňuje hromadný import zboží ze souboru typu CSV nebo TXT.
 
 ## 8. Exportovat data do CSV/TXT souboru
 Tato volba slouží k exportu dat o zboží do souboru ve formátu CSV nebo TXT.
+Uzivatel zadá název souboru a formát (csv nebo txt).
+Program vytvoří adresář testy/exporty, pokud neexistuje.
 
 ### Postup:
 1. Zadejte **název souboru**, do kterého chcete exportovat.
