@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 public class Main {
-    private static final String EXPORT_DIRECTORY = "src/"; // Adresář pro export souborů
+    public static final String EXPORT_DIRECTORY = "testy/exporty"; // Adresář pro export souborů
 
     public static void main(String[] args) {
         Sklad sklad = new Sklad(); // Vytvoření instance skladu
@@ -85,10 +85,10 @@ public class Main {
                     String format = scanner.nextLine().toLowerCase(); // Převod na malá písmena
 
                     if (format.equals("csv")) {
-                        sklad.exportData(Paths.get(EXPORT_DIRECTORY, fileName + ".csv").toString());
+                        sklad.exportData(fileName + ".csv");
                         zobrazitVyzitiPameti();
                     } else if (format.equals("txt")) {
-                        sklad.exportData(Paths.get(EXPORT_DIRECTORY, fileName + ".txt").toString());
+                        sklad.exportData(fileName + ".txt");
                         zobrazitVyzitiPameti();
                     } else {
                         System.out.println("Neplatný formát, export zrušen.");
@@ -118,7 +118,9 @@ public class Main {
         } while (volba != 10);
 
         scanner.close(); // Uzavření scanneru
-    }/**
+    }
+
+    /**
      * Metoda pro zobrazení využití paměti.
      */
     public static void zobrazitVyzitiPameti() {
@@ -137,7 +139,3 @@ public class Main {
         System.out.println("Maximální paměť: " + pametMax / (1024 * 1024) + " MB");
     }
 }
-
-
-// Michal Klymov, semestrální práce - DSA.
-// VŠPJ, 2024

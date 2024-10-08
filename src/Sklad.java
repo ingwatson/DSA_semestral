@@ -1,59 +1,32 @@
-import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.TreeMap;
 
-/**
- * Třída Sklad představuje sklad, který spravuje kolekci zboží.
- */
 public class Sklad {
-    private Map<Integer, Zbozi> sklad; // Mapa pro uložení zboží s jejich ID jako klíči
+    private TreeMap<Integer, Zbozi> sklad = new TreeMap<>();
 
-    /**
-     * Konstruktor inicializuje sklad s prázdným HashMap.
-     */
-    public Sklad() {
-        sklad = new HashMap<>(); // Inicializace skladu
-    }
-
-    /**
-     * Přidá nebo aktualizuje zboží ve skladu.
-     * @param id ID zboží
-     * @param nazev Název zboží
-     * @param cena Cena zboží
-     * @param pocetKs Počet kusů zboží
-     */
     public void pridatZbozi(int id, String nazev, double cena, int pocetKs) {
         Zbozi zbozi = new Zbozi(id, nazev, cena, pocetKs);
         sklad.put(id, zbozi);
-        System.out.println("Zboží přidáno/aktualizováno.");
+        System.out.println("Zboží s ID " + id + " bylo přidáno/aktualizováno.");
     }
 
-    /**
-     * Aktualizuje počet kusů zboží ve skladu.
-     * @param id ID zboží
-     * @param pocetKs Nový počet kusů zboží
-     */
-    public void aktualizovatPocetZbozi(int id, int pocetKs) {
+    public void aktualizovatPocetZbozi(int id, int novyPocetKs) {
         Zbozi zbozi = sklad.get(id);
         if (zbozi != null) {
-            zbozi.setPocetKs(pocetKs);
-            if (pocetKs <= 0) {
-                sklad.remove(id);
-                System.out.println("Zboží s ID " + id + " bylo odstraněno ze skladu (počet kusů = 0).");
-            } else {
-                System.out.println("Počet kusů zboží s ID " + id + " byl aktualizován.");
-            }
+            zbozi.setPocetKs(novyPocetKs);
+            System.out.println("Počet kusů zboží s ID " + id + " byl aktualizován.");
         } else {
             System.out.println("Zboží s ID " + id + " nebylo nalezeno.");
         }
     }
 
-    /**
-     * Zobrazí detaily zboží podle jeho ID.
-     * @param id ID zboží
-     */
     public void vypisZbozi(int id) {
         Zbozi zbozi = sklad.get(id);
         if (zbozi != null) {
@@ -63,7 +36,6 @@ public class Sklad {
         }
     }
 
-
     public void zrusitZbozi(int id) {
         if (sklad.remove(id) != null) {
             System.out.println("Zboží s ID " + id + " bylo zrušeno.");
@@ -71,7 +43,6 @@ public class Sklad {
             System.out.println("Zboží s ID " + id + " nebylo nalezeno.");
         }
     }
-
 
     public void vypisVsechny() {
         TreeMap<Integer, Zbozi> serazenySklad = new TreeMap<>(sklad);
@@ -82,10 +53,6 @@ public class Sklad {
         }
     }
 
-
-    //Vypočítá a vrátí celkovou cenu veškerého zboží ve skladu.
-
-
     public double vypocetCelkoveCeny() {
         double celkovaCena = 0;
         for (Zbozi zbozi : sklad.values()) {
@@ -94,7 +61,6 @@ public class Sklad {
         return celkovaCena;
     }
 
-    //Importuje data ze souboru CSV/TXT do skladu.
     public void importData(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -112,23 +78,30 @@ public class Sklad {
         }
     }
 
-    //Exportuje data ze skladu do souboru CSV/TXT.
+    public void exportData(String fileName) {
+        String exportDirectory = Main.EXPORT_DIRECTORY;
+        String exportPath = Paths.get(exportDirectory, fileName).toString();
+        Path directoryPath = Paths.get(exportDirectory);
 
-    public void exportData(String filePath) {
-        String exportPath = Paths.get("src", filePath).toString();
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(exportPath))) {
-            for (Zbozi zbozi : sklad.values()) {
-                writer.write(zbozi.toCSV());
-                writer.newLine();
+        try {
+            // Create the directory if it does not exist
+            if (!Files.exists(directoryPath)) {
+                Files.createDirectories(directoryPath);
             }
-            System.out.println("Data byla úspěšně exportována do " + exportPath);
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(exportPath))) {
+                for (Zbozi zbozi : sklad.values()) {
+                    writer.write(zbozi.toCSV());
+                    writer.newLine();
+                }
+                System.out.println("Data byla úspěšně exportována do " + exportPath);
+            }
         } catch (IOException e) {
             System.out.println("Chyba při zápisu do souboru: " + e.getMessage());
         }
     }
 
-
-    public static class Zbozi { //Třída Zbozi představuje zbozí ve skladu.
+    public static class Zbozi {
         private int id;
         private String nazev;
         private double cena;
@@ -170,12 +143,8 @@ public class Sklad {
             return String.format("%-10d %-20s %-10.2f %-10d", id, nazev, cena, pocetKs);
         }
 
-
         public String toCSV() {
             return id + "," + nazev + "," + cena + "," + pocetKs;
         }
     }
 }
-
-// Michal Klymov, semestrální práce - DSA.
-// VŠPJ, 2024
