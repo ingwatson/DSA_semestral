@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.nio.file.Paths;
 
 /**
  * Třída Sklad představuje sklad, který spravuje kolekci zboží.
@@ -13,7 +14,7 @@ public class Sklad {
      * Konstruktor inicializuje sklad s prázdným HashMap.
      */
     public Sklad() {
-        sklad = new HashMap<>();
+        sklad = new HashMap<>(); // Inicializace skladu
     }
 
     /**
@@ -114,17 +115,17 @@ public class Sklad {
     //Exportuje data ze skladu do souboru CSV/TXT.
 
     public void exportData(String filePath) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+        String exportPath = Paths.get("src", filePath).toString();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(exportPath))) {
             for (Zbozi zbozi : sklad.values()) {
                 writer.write(zbozi.toCSV());
                 writer.newLine();
             }
-            System.out.println("Data byla úspěšně exportována do " + filePath);
+            System.out.println("Data byla úspěšně exportována do " + exportPath);
         } catch (IOException e) {
             System.out.println("Chyba při zápisu do souboru: " + e.getMessage());
         }
     }
-
 
 
     public static class Zbozi { //Třída Zbozi představuje zbozí ve skladu.
