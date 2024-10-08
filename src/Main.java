@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 public class Main {
-    private static final String EXPORT_DIRECTORY = "/Users/klymov/Documents/DSA_semestral/"; //Absolutní cesty
+    private static final String EXPORT_DIRECTORY = "src/"; // Adresář pro export souborů
 
     public static void main(String[] args) {
         Sklad sklad = new Sklad(); // Vytvoření instance skladu
@@ -85,10 +85,10 @@ public class Main {
                     String format = scanner.nextLine().toLowerCase(); // Převod na malá písmena
 
                     if (format.equals("csv")) {
-                        sklad.exportData(EXPORT_DIRECTORY + fileName + ".csv");
+                        sklad.exportData(Paths.get(EXPORT_DIRECTORY, fileName + ".csv").toString());
                         zobrazitVyzitiPameti();
                     } else if (format.equals("txt")) {
-                        sklad.exportData(EXPORT_DIRECTORY + fileName + ".txt");
+                        sklad.exportData(Paths.get(EXPORT_DIRECTORY, fileName + ".txt").toString());
                         zobrazitVyzitiPameti();
                     } else {
                         System.out.println("Neplatný formát, export zrušen.");
