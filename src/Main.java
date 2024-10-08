@@ -118,8 +118,7 @@ public class Main {
         } while (volba != 10);
 
         scanner.close(); // Uzavření scanneru
-    }
-    /**
+    }/**
      * Metoda pro zobrazení využití paměti.
      */
     public static void zobrazitVyzitiPameti() {
