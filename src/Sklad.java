@@ -1,29 +1,61 @@
-import java.io.BufferedReader;   // Pro efektivní čtení textových souborů
-import java.io.BufferedWriter;   // Pro efektivní zápis textových souborů
-import java.io.FileReader;       // Pro čtení ze souboru
-import java.io.FileWriter;       // Pro zápis do souboru
-import java.io.IOException;      // Pro práci s výjimkami při I/O operacích
-import java.nio.file.Files;      // Pro práci se soubory a adresáři
-import java.nio.file.Path;       // Pro reprezentaci cesty k souboru/adresáři
-import java.nio.file.Paths;      // Pro práci s cestami k souborům/adresářům
-import java.util.TreeMap;        // Pro uchování a řazení zboží podle ID
+
+
+import skladt.Zbozi;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.SQLException;
+import java.util.TreeMap;
 
 public class Sklad {
     private TreeMap<Integer, Zbozi> sklad = new TreeMap<>();
+    private com.example.sklad.DatabaseConnection dbConnection;
+
+    public Sklad() {
+        try {
+            dbConnection = new com.example.sklad.DatabaseConnection();
+        } catch (SQLException e) {
+            System.out.println("Error connecting to the database: " + e.getMessage());
+            dbConnection = null; // Ensure dbConnection is set to null if connection fails
+        }
+    }
 
     public void pridatZbozi(int id, String nazev, double cena, int pocetKs) {
         Zbozi zbozi = new Zbozi(id, nazev, cena, pocetKs);
         sklad.put(id, zbozi);
-        System.out.println("Zboží s ID " + id + " bylo přidáno/aktualizováno.");
+        if (dbConnection != null) {
+            try {
+                dbConnection.saveItem(id, nazev, cena, pocetKs);
+                System.out.println("Item with ID " + id + " has been added/updated.");
+            } catch (SQLException e) {
+                System.out.println("Error saving item to the database: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Database connection is not available.");
+        }
     }
 
     public void aktualizovatPocetZbozi(int id, int novyPocetKs) {
         Zbozi zbozi = sklad.get(id);
         if (zbozi != null) {
             zbozi.setPocetKs(novyPocetKs);
-            System.out.println("Počet kusů zboží s ID " + id + " byl aktualizován.");
+            if (dbConnection != null) {
+                try {
+                    dbConnection.saveItem(id, zbozi.getNazev(), zbozi.getCena(), novyPocetKs);
+                } catch (SQLException e) {
+                    System.out.println("Error updating item in the database: " + e.getMessage());
+                }
+            } else {
+                System.out.println("Database connection is not available.");
+            }
         } else {
-            System.out.println("Zboží s ID " + id + " nebylo nalezeno.");
+            System.out.println("Item with ID " + id + " not found.");
         }
     }
 
@@ -32,24 +64,32 @@ public class Sklad {
         if (zbozi != null) {
             System.out.println(zbozi);
         } else {
-            System.out.println("Zboží s ID " + id + " nebylo nalezeno.");
+            System.out.println("Item with ID " + id + " not found.");
         }
     }
 
     public void zrusitZbozi(int id) {
         if (sklad.remove(id) != null) {
-            System.out.println("Zboží s ID " + id + " bylo zrušeno.");
+            System.out.println("Item with ID " + id + " has been removed.");
         } else {
-            System.out.println("Zboží s ID " + id + " nebylo nalezeno.");
+            System.out.println("Item with ID " + id + " not found.");
         }
     }
 
     public void vypisVsechny() {
-        TreeMap<Integer, Zbozi> serazenySklad = new TreeMap<>(sklad);
-        System.out.println(String.format("%-10s %-20s %-10s %-10s", "ID", "Název", "Cena", "Počet kusů"));
-        System.out.println("--------------------------------------------------------------");
-        for (Zbozi zbozi : serazenySklad.values()) {
-            System.out.println(zbozi);
+        if (dbConnection != null) {
+            try {
+                TreeMap<Integer, Zbozi> serazenySklad = dbConnection.getAllItems();
+                System.out.println(String.format("%-10s %-20s %-10s %-10s", "ID", "Name", "Price", "Quantity"));
+                System.out.println("--------------------------------------------------------------");
+                for (Zbozi zbozi : serazenySklad.values()) {
+                    System.out.println(zbozi);
+                }
+            } catch (SQLException e) {
+                System.out.println("Error retrieving items from the database: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Database connection is not available.");
         }
     }
 
@@ -72,9 +112,9 @@ public class Sklad {
                 int pocetKs = Integer.parseInt(data[3]);
                 pridatZbozi(id, nazev, cena, pocetKs);
             }
-            System.out.println("Data byla úspěšně importována z " + filePath);
+            System.out.println("Data successfully imported from " + filePath);
         } catch (IOException e) {
-            System.out.println("Chyba při čtení souboru: " + e.getMessage());
+            System.out.println("Error reading file: " + e.getMessage());
         }
     }
 
@@ -84,7 +124,6 @@ public class Sklad {
         Path directoryPath = Paths.get(exportDirectory);
 
         try {
-            // Create the directory if it does not exist
             if (!Files.exists(directoryPath)) {
                 Files.createDirectories(directoryPath);
             }
@@ -94,57 +133,20 @@ public class Sklad {
                     writer.write(zbozi.toCSV());
                     writer.newLine();
                 }
-                System.out.println("Data byla úspěšně exportována do " + exportPath);
+                System.out.println("Data successfully exported to " + exportPath);
             }
         } catch (IOException e) {
-            System.out.println("Chyba při zápisu do souboru: " + e.getMessage());
+            System.out.println("Error writing to file: " + e.getMessage());
         }
     }
 
-    public static class Zbozi {
-        private int id;
-        private String nazev;
-        private double cena;
-        private int pocetKs;
-
-        public Zbozi(int id, String nazev, double cena, int pocetKs) {
-            this.id = id;
-            this.nazev = nazev;
-            this.cena = cena;
-            this.pocetKs = pocetKs;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public String getNazev() {
-            return nazev;
-        }
-
-        public double getCena() {
-            return cena;
-        }
-
-        public int getPocetKs() {
-            return pocetKs;
-        }
-
-        public void setPocetKs(int pocetKs) {
-            this.pocetKs = pocetKs;
-        }
-
-        public double getCelkovaCena() {
-            return cena * pocetKs;
-        }
-
-        @Override
-        public String toString() {
-            return String.format("%-10d %-20s %-10.2f %-10d", id, nazev, cena, pocetKs);
-        }
-
-        public String toCSV() {
-            return id + "," + nazev + "," + cena + "," + pocetKs;
+    public void close() {
+        try {
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error closing database connection: " + e.getMessage());
         }
     }
 }

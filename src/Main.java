@@ -1,38 +1,36 @@
-import java.util.Scanner;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 public class Main {
-    public static final String EXPORT_DIRECTORY = "testy/exporty"; // Adresář pro export souborů
+    public static final String EXPORT_DIRECTORY = "exported_data";
 
     public static void main(String[] args) {
-        Sklad sklad = new Sklad(); // Vytvoření instance skladu
-        Scanner scanner = new Scanner(System.in); // Scanner pro vstup uživatele
-        int volba; // Proměnná pro volbu uživatele (prvky menu).
+        Scanner scanner = new Scanner(System.in);
+        Sklad sklad = new Sklad();
+        int volba;
 
         do {
-            System.out.println("\nSkladový systém");
-            System.out.println("\n1. Přidat nebo aktualizovat zboží");
-            System.out.println("2. Aktualizovat počet kusů zboží podle ID");
+            System.out.println("\nMenu:");
+            System.out.println("1. Přidat zboží");
+            System.out.println("2. Aktualizovat počet zboží");
             System.out.println("3. Vypsat zboží podle ID");
             System.out.println("4. Zrušit zboží podle ID");
-            System.out.println("5. Vypsat všechna zboží seřazená podle ID");
-            System.out.println("6. Spočítat celkovou cenu zboží");
-            System.out.println("7. Importovat data z CSV/TXT souboru");
-            System.out.println("8. Exportovat data do CSV/TXT souboru");
+            System.out.println("5. Vypsat všechno zboží");
+            System.out.println("6. Vypočítat celkovou cenu zboží");
+            System.out.println("7. Importovat data ze souboru");
+            System.out.println("8. Exportovat data do souboru");
             System.out.println("9. Zobrazit nápovědu");
-            System.out.println("10. Konec");
-            System.out.print("Vyberte operaci: ");
+            System.out.println("10. Ukončit program");
+            System.out.print("Zadejte volbu: ");
             volba = scanner.nextInt();
 
             switch (volba) {
                 case 1:
                     System.out.print("Zadejte ID zboží: ");
                     int id = scanner.nextInt();
-                    scanner.nextLine();
+                    scanner.nextLine(); // Vyčištění bufferu
                     System.out.print("Zadejte název zboží: ");
                     String nazev = scanner.nextLine();
                     System.out.print("Zadejte cenu zboží: ");
@@ -44,10 +42,10 @@ public class Main {
                     break;
                 case 2:
                     System.out.print("Zadejte ID zboží: ");
-                    int idAkt = scanner.nextInt();
+                    int idAktualizace = scanner.nextInt();
                     System.out.print("Zadejte nový počet kusů: ");
                     int novyPocetKs = scanner.nextInt();
-                    sklad.aktualizovatPocetZbozi(idAkt, novyPocetKs);
+                    sklad.aktualizovatPocetZbozi(idAktualizace, novyPocetKs);
                     zobrazitVyzitiPameti();
                     break;
                 case 3:
@@ -119,7 +117,6 @@ public class Main {
 
         scanner.close(); // Uzavření scanneru
     }
-
 
     // Metoda pro zobrazení využití paměti.
     public static void zobrazitVyzitiPameti() {

@@ -4,7 +4,7 @@ Tento projekt je jednoduchý systém pro správu skladu implementovaný v jazyce
 
 ## Struktura projektu
 
-- `src/Main.java`: Obsahuje hlavní třídu a třídu `Zbozi`.
+- `src/Main.java`: Obsahuje hlavní třídu a třídu `Sklad.Sklad`.
 - `src/Sklad.java`: Obsahuje třídu `Sklad`.
 - `testy/`: Obsahuje soubory .csv k importu. 
 - `napoveda.md`: Obsahuje pokyny k používání programu.
@@ -13,7 +13,7 @@ Tento projekt je jednoduchý systém pro správu skladu implementovaný v jazyce
 
 ### Sklad
 
-Třída `Sklad` představuje sklad, který spravuje kolekci zboží (`Zbozi`). Poskytuje metody pro přidávání, aktualizaci, odstraňování a zobrazování zboží, stejně jako pro výpočet celkové ceny veškerého zboží ve skladu.
+Třída `Sklad` představuje sklad, který spravuje kolekci zboží (`Sklad.Sklad`). Poskytuje metody pro přidávání, aktualizaci, odstraňování a zobrazování zboží, stejně jako pro výpočet celkové ceny veškerého zboží ve skladu.
 
 #### Metody
 
@@ -26,9 +26,9 @@ Třída `Sklad` představuje sklad, který spravuje kolekci zboží (`Zbozi`). P
 - `importData(String filePath)`: Importuje data ze souboru CSV/TXT do skladu.
 - `exportData(String filePath)`: Exportuje data ze skladu do souboru CSV/TXT.
 
-### Zbozi
+### Sklad.Sklad
 
-Třída `Zbozi` představuje zboží ve skladu. Obsahuje detaily o zboží, jako je jeho ID, název, cena a počet kusů.
+Třída `Sklad.Sklad` představuje zboží ve skladu. Obsahuje detaily o zboží, jako je jeho ID, název, cena a počet kusů.
 
 #### Metody
 
@@ -46,7 +46,7 @@ Třída `Zbozi` představuje zboží ve skladu. Obsahuje detaily o zboží, jako
 V projektu jsou použity následující datové struktury:
 
 1. **`HashMap`**:
-   - Používá se ve třídě `Sklad` pro uložení zboží (`Zbozi`) s jejich ID jako klíči.
+   - Používá se ve třídě `Sklad` pro uložení zboží (`Sklad.Sklad`) s jejich ID jako klíči.
    - `HashMap` umožňuje rychlý přístup k zboží podle jejich ID.
 
 
