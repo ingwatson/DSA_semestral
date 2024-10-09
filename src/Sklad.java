@@ -1,12 +1,12 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.TreeMap;
+import java.io.BufferedReader;   // Pro efektivní čtení textových souborů
+import java.io.BufferedWriter;   // Pro efektivní zápis textových souborů
+import java.io.FileReader;       // Pro čtení ze souboru
+import java.io.FileWriter;       // Pro zápis do souboru
+import java.io.IOException;      // Pro práci s výjimkami při I/O operacích
+import java.nio.file.Files;      // Pro práci se soubory a adresáři
+import java.nio.file.Path;       // Pro reprezentaci cesty k souboru/adresáři
+import java.nio.file.Paths;      // Pro práci s cestami k souborům/adresářům
+import java.util.TreeMap;        // Pro uchování a řazení zboží podle ID
 
 public class Sklad {
     private TreeMap<Integer, Zbozi> sklad = new TreeMap<>();

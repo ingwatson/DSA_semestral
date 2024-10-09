@@ -120,19 +120,23 @@ public class Main {
         scanner.close(); // Uzavření scanneru
     }
 
-    /**
-     * Metoda pro zobrazení využití paměti.
-     */
+
+    // Metoda pro zobrazení využití paměti.
     public static void zobrazitVyzitiPameti() {
+        // Získání instance runtime spojené s aktuální Java aplikací.
         Runtime runtime = Runtime.getRuntime();
 
-        // Vynucení garbage collectoru pro přesnější měření
+        // Vynucení garbage collectoru pro přesnější měření.
         System.gc();
 
+        // Výpočet použité paměti.
         long pametPouzita = runtime.totalMemory() - runtime.freeMemory();
+        // Získání celkové paměti aktuálně dostupné JVM.
         long pametCelkem = runtime.totalMemory();
+        // Získání maximální paměti, kterou se JVM pokusí použít.
         long pametMax = runtime.maxMemory();
 
+        // Výpis detailů o využití paměti.
         System.out.println("\n=== Využití paměti ===");
         System.out.println("Použitá paměť: " + pametPouzita / (1024 * 1024) + " MB");
         System.out.println("Dostupná paměť: " + pametCelkem / (1024 * 1024) + " MB");
