@@ -96,7 +96,7 @@ public class Main {
 
                     break;
                 case 9:
-                    try (InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("napoveda.md")) {
+                    try (InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("napoveda.txt")) {
                         if (inputStream != null) {
                             String content = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
                             System.out.println(content);
