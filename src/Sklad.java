@@ -1,5 +1,3 @@
-
-
 import skladt.Zbozi;
 
 import java.io.BufferedReader;
@@ -15,11 +13,12 @@ import java.util.TreeMap;
 
 public class Sklad {
     private TreeMap<Integer, Zbozi> sklad = new TreeMap<>();
-    private com.example.sklad.DatabaseConnection dbConnection;
+    private DatabaseConnection dbConnection;
 
     public Sklad() {
         try {
-            dbConnection = new com.example.sklad.DatabaseConnection();
+            dbConnection = new DatabaseConnection();
+            sklad = dbConnection.getAllItems(); // Populate the map from the database
         } catch (SQLException e) {
             System.out.println("Error connecting to the database: " + e.getMessage());
             dbConnection = null; // Ensure dbConnection is set to null if connection fails
@@ -70,7 +69,16 @@ public class Sklad {
 
     public void zrusitZbozi(int id) {
         if (sklad.remove(id) != null) {
-            System.out.println("Item with ID " + id + " has been removed.");
+            if (dbConnection != null) {
+                try {
+                    dbConnection.deleteItem(id);
+                    System.out.println("Item with ID " + id + " has been removed.");
+                } catch (SQLException e) {
+                    System.out.println("Error deleting item from the database: " + e.getMessage());
+                }
+            } else {
+                System.out.println("Database connection is not available.");
+            }
         } else {
             System.out.println("Item with ID " + id + " not found.");
         }
